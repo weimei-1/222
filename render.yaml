@@ -5,7 +5,7 @@ services:
     name: supermarket-api
     runtime: docker
     repo: https://github.com/weimei-1/supermarket-orders.git
-    branch: master
+    branch: main
     plan: free
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
@@ -27,7 +27,7 @@ services:
     runtime: static
     name: supermarket-frontend
     repo: https://github.com/weimei-1/supermarket-orders.git
-    branch: master
+    branch: main
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
