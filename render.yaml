@@ -4,16 +4,17 @@ services:
   - type: web
     name: supermarket-api
     runtime: docker
-    repo: https://github.com/你的用户名/仓库名
-    branch: main
+    repo: https://github.com/weimei-1/supermarket-orders.git
+    branch: master
+    plan: free
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
     healthCheckPath: /api/auth/health
     envVars:
       - key: SPRING_DATASOURCE_URL
-        value: jdbc:mysql://<数据库主机>:3306/supermarket_db?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+        value: jdbc:mysql://db4free.net:3306/supermarket_db?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
       - key: SPRING_DATASOURCE_USERNAME
-        value: <数据库用户名>
+        value: supermarket_user
       - key: SPRING_DATASOURCE_PASSWORD
         sync: false
       - key: SPRING_PROFILES_ACTIVE
@@ -22,14 +23,14 @@ services:
         generateValue: true
 
   # ==================== 前端静态站点 ====================
-  - type: static
+  - type: web
+    runtime: static
     name: supermarket-frontend
-    repo: https://github.com/你的用户名/仓库名
-    branch: main
+    repo: https://github.com/weimei-1/supermarket-orders.git
+    branch: master
     rootDir: frontend
     buildCommand: npm install && npm run build
-    publishPath: /dist
-    pullRequestPreviewsEnabled: false
+    staticPublishPath: dist
     headers:
       - path: /*
         name: X-Frame-Options
