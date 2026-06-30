@@ -1,41 +1,31 @@
-# ============================================
-# Render Blueprint - 一键部署配置文件
-# 将此文件放在仓库根目录，Render 会自动识别
-# 使用方式：Render Dashboard → Blueprint → Connect Repository
-# ============================================
-
 services:
 
   # ==================== 后端 API 服务 ====================
   - type: web
     name: supermarket-api
     runtime: docker
-    repo: https://github.com/你的用户名/你的仓库名
+    repo: https://github.com/你的用户名/仓库名
     branch: main
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
     healthCheckPath: /api/auth/health
     envVars:
-      # ---- 数据库配置（必填） ----
-      # 推荐使用 Render PostgreSQL 或外部 MySQL
       - key: SPRING_DATASOURCE_URL
         value: jdbc:mysql://<数据库主机>:3306/supermarket_db?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
       - key: SPRING_DATASOURCE_USERNAME
         value: <数据库用户名>
       - key: SPRING_DATASOURCE_PASSWORD
-        sync: false  # 将在 Render Dashboard 中手动输入，不会明文存储在仓库
+        sync: false
       - key: SPRING_PROFILES_ACTIVE
         value: production
-      # ---- JWT 密钥（必填） ----
       - key: JWT_SECRET
-        generateValue: true  # Render 自动生成随机密钥
+        generateValue: true
 
   # ==================== 前端静态站点 ====================
   - type: static
     name: supermarket-frontend
-    repo: https://github.com/你的用户名/你的仓库名
+    repo: https://github.com/你的用户名/仓库名
     branch: main
-    # 关键配置：告诉 Render package.json 在 frontend/ 目录下
     rootDir: frontend
     buildCommand: npm install && npm run build
     publishPath: /dist
@@ -44,7 +34,10 @@ services:
       - path: /*
         name: X-Frame-Options
         value: DENY
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
     envVars:
-      # 后端 API 地址（请替换为实际部署后的后端 URL）
       - key: VITE_API_BASE_URL
         value: https://supermarket-api.onrender.com
