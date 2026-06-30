@@ -1,14 +1,12 @@
 services:
 
-  # ==================== 后端 API 服务 ====================
   - type: web
     name: supermarket-api
     runtime: docker
-    repo: https://github.com/weimei-1/supermarket-orders.git
+    repo: https://github.com/weimei-1/222.git
     branch: main
     plan: free
-    dockerfilePath: ./backend/Dockerfile
-    dockerContext: ./backend
+    dockerfilePath: ./Dockerfile
     healthCheckPath: /api/auth/health
     envVars:
       - key: SPRING_DATASOURCE_URL
@@ -22,11 +20,10 @@ services:
       - key: JWT_SECRET
         generateValue: true
 
-  # ==================== 前端静态站点 ====================
   - type: web
     runtime: static
     name: supermarket-frontend
-    repo: https://github.com/weimei-1/supermarket-orders.git
+    repo: https://github.com/weimei-1/222.git
     branch: main
     rootDir: frontend
     buildCommand: npm install && npm run build

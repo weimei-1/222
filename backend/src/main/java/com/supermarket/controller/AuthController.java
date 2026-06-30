@@ -19,12 +19,11 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    /**
-     * 用户登录
-     *
-     * @param loginDTO 登录信息
-     * @return token
-     */
+    @GetMapping("/health")
+    public Result<String> health() {
+        return Result.success("OK");
+    }
+
     @PostMapping("/login")
     public Result<Map<String, Object>> login(@RequestBody LoginDTO loginDTO) {
         Map<String, Object> data = userService.login(loginDTO.getUsername(), loginDTO.getPassword());
