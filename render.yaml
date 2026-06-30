@@ -1,5 +1,8 @@
-services:
+databases:
+  - name: supermarket-db
+    plan: free
 
+services:
   - type: web
     name: supermarket-api
     runtime: docker
@@ -10,9 +13,9 @@ services:
     healthCheckPath: /api/auth/health
     envVars:
       - key: SPRING_DATASOURCE_URL
-        value: jdbc:mysql://db4free.net:3306/supermarket_db?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+        value: jdbc:postgresql://<数据库主机>:5432/<数据库名>
       - key: SPRING_DATASOURCE_USERNAME
-        value: supermarket_user
+        value: <数据库用户名>
       - key: SPRING_DATASOURCE_PASSWORD
         sync: false
       - key: SPRING_PROFILES_ACTIVE

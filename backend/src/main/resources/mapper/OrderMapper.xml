@@ -22,7 +22,7 @@
                 AND o.status = #{status}
             </if>
             <if test="productName != null and productName != ''">
-                AND oi.product_name LIKE CONCAT('%', #{productName}, '%')
+                AND oi.product_name LIKE '%' || #{productName} || '%'
             </if>
         </where>
         ORDER BY o.create_time DESC

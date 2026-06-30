@@ -23,7 +23,7 @@ public class MyBatisPlusConfig {
 
         // 分页插件
         PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor();
-        paginationInnerInterceptor.setDbType(DbType.MYSQL);
+        paginationInnerInterceptor.setDbType(DbType.POSTGRE_SQL);
         paginationInnerInterceptor.setOverflow(true);
         interceptor.addInnerInterceptor(paginationInnerInterceptor);
 
